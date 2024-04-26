@@ -1,54 +1,40 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
-	"time"
 
 	"github.com/pranavpatel3012/go-todo-cli/todo"
 )
 
+const TODOFile = "todo/todos.json"
+
 func main() {
-	fmt.Printf("Hello\n")
+	fmt.Printf("Welcome to ToDo cli made in GoLang!!\n")
 
-	t := todo.Todo{
-		Title:     "Title of Todo",
-		Desc:      "Description of Todo",
-		Done:      false,
-		CreatedAt: time.Now(),
-	}
-	t.Print()
-	fmt.Println(t.Validate())
-
-	err := t.ValidateWithError()
+	// Read the file and get the todos
+	f, err := todo.OpenFile(TODOFile)
 	if err != nil {
-		fmt.Printf("\nTodo is not valid. Error: %v\n", err)
+		println(err)
+		return
+	}
+	defer f.Close()
+
+	todos, err := todo.ParseFileToTodo(TODOFile)
+	if err != nil {
+		println(err)
+		return
+	}
+
+	todos, err = todo.InputLoop(todos)
+	if err != nil {
+		println(err)
+	}
+
+	err = todo.WriteTodosToFile(f, todos)
+	if err != nil {
+		println(err)
 	} else {
-		fmt.Printf("\nTodo is valid")
+		println("Wrote to the file!!")
 	}
-
-	todoBytes, err := json.Marshal(t)
-	if err != nil {
-		fmt.Printf("\nSomething went wrong while encoding to JSON: %v\n", err)
-	}
-	// fmt.Printf("\n JSON Bytes: %v\n", todoBytes)
-	todoJSONString := string(todoBytes)
-	fmt.Printf("\n JSON String: %v\n", todoJSONString)
-	// fmt.Printf("\n JSON String to Bytes: %v\n", []byte(todoJSONString))
-
-	// t.Print()
-
-	// Struct from JSON
-	jsonString := `
-	{
-		"Title": "Title of the todo",
-		"desc": "Desc of the todo"
-	}
-	`
-
-	newTodo := todo.Todo{}
-	err = json.Unmarshal([]byte(jsonString), &newTodo)
-	fmt.Printf("\nJSON string: %v\n Converting error: %v\n", jsonString, err)
-	newTodo.Print()
 
 }
