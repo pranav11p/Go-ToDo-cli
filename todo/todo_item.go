@@ -14,11 +14,11 @@ type Todo struct {
 }
 
 func (todo *Todo) Print() {
-	fmt.Println("------------------")
 	fmt.Println("Title: ", todo.Title)
 	fmt.Println("Desc: ", todo.Desc)
 	fmt.Println("Done: ", todo.Done)
 	fmt.Println("CreatedAt: ", todo.CreatedAt.Format("2006-01-02 15:04:05"))
+	fmt.Println("------------------")
 	// fmt.Println("UpdatedAt: ", todo.UpdatedAt)
 }
 

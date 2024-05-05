@@ -43,6 +43,16 @@ func WriteTodosToFile(f *os.File, todos []Todo) error {
 	}
 	todosJSONContents := string(todosJSONBytes)
 
+	// Truncate the file before writing
+	err = f.Truncate(0)
+	if err != nil {
+		return fmt.Errorf("\nError truncating Todo file %v", err)
+	}
+	_, err = f.Seek(0, 0)
+	if err != nil {
+		return fmt.Errorf("\nError seeking Todo file %v", err)
+	}
+
 	_, err = f.WriteString(todosJSONContents)
 	if err != nil {
 		return fmt.Errorf("\nError writing to file %v", err)

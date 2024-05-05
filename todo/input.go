@@ -16,7 +16,7 @@ loop:
 		fmt.Println("1. View todos")
 		fmt.Println("2. Create a new Todo")
 		fmt.Println("3. Mark todo as done")
-		fmt.Println("4. Edit todo title")
+		fmt.Println("4. Delete a Todo")
 		fmt.Println("0. Exit")
 		fmt.Println("Enter your Choice: ")
 
@@ -46,6 +46,7 @@ loop:
 			}
 		case "4":
 			{
+				todos = DeleteTodo(todos)
 			}
 		case "0":
 			{
