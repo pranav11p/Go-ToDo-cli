@@ -62,6 +62,9 @@ func MarkTodoDone(todos []Todo) {
 start:
 	{
 		id, err := readTodoId()
+		if id == -1 {
+			return
+		}
 
 		if err != nil || id >= len(todos) || id < 0 {
 			fmt.Printf("Invalid Todo ID %d: %v\n", id, err)
@@ -79,6 +82,9 @@ func DeleteTodo(todos []Todo) []Todo {
 start:
 	{
 		id, err := readTodoId()
+		if id == -1 {
+			return todos
+		}
 
 		if err != nil || id >= len(todos) || id < 0 {
 			fmt.Printf("Invalid Todo ID %d: %v\n", id, err)

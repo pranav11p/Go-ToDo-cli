@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-func InputLoop(todos []Todo) ([]Todo, error) {
+func InputLoop(todos []Todo, file *os.File) ([]Todo, error) {
 loop:
 	for {
 		fmt.Println("")
@@ -17,6 +17,7 @@ loop:
 		fmt.Println("2. Create a new Todo")
 		fmt.Println("3. Mark todo as done")
 		fmt.Println("4. Delete a Todo")
+		fmt.Println("9. Save to file")
 		fmt.Println("0. Exit")
 		fmt.Println("Enter your Choice: ")
 
@@ -48,9 +49,22 @@ loop:
 			{
 				todos = DeleteTodo(todos)
 			}
+		case "9":
+			{
+				err = WriteTodosToFile(file, todos)
+				if err != nil {
+					println(err)
+				} else {
+					println("Wrote to the file!!")
+				}
+			}
 		case "0":
 			{
 				break loop
+			}
+		default:
+			{
+				fmt.Println("Invalid Options is selected")
 			}
 		}
 	}

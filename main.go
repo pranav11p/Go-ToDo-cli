@@ -25,7 +25,7 @@ func main() {
 		return
 	}
 
-	todos, err = todo.InputLoop(todos)
+	todos, err = todo.InputLoop(todos, f)
 	if err != nil {
 		println(err)
 	}
