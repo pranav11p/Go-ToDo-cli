@@ -30,7 +30,7 @@ func readTodoId() (int, error) {
 
 func ViewTodos(todos []Todo) {
 	for i, t := range todos {
-		fmt.Printf("ID: %d\n", i)
+		fmt.Printf("ID: %d\n", i+1)
 		t.Print()
 	}
 }
@@ -57,7 +57,7 @@ func CreateATodo() (Todo, error) {
 	}, nil
 }
 
-func MarkTodoDone(todos []Todo) {
+func ToggleTodoDone(todos []Todo) {
 
 start:
 	{
@@ -66,13 +66,13 @@ start:
 			return
 		}
 
-		if err != nil || id >= len(todos) || id < 0 {
+		if err != nil || id > len(todos) || id <= 0 {
 			fmt.Printf("Invalid Todo ID %d: %v\n", id, err)
 			goto start
 		}
 
 		t := todos[id-1]
-		t.Done = true
+		t.Done = !t.Done
 		todos[id-1] = t
 	}
 }

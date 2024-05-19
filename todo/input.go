@@ -11,11 +11,12 @@ import (
 func InputLoop(todos []Todo, file *os.File) ([]Todo, error) {
 loop:
 	for {
+		go WriteTodosToFile(file, todos)
 		fmt.Println("")
 		fmt.Println("Please choose an option:")
 		fmt.Println("1. View todos")
 		fmt.Println("2. Create a new Todo")
-		fmt.Println("3. Mark todo as done")
+		fmt.Println("3. Toggle todo as done")
 		fmt.Println("4. Delete a Todo")
 		fmt.Println("9. Save to file")
 		fmt.Println("0. Exit")
@@ -43,7 +44,7 @@ loop:
 			}
 		case "3":
 			{
-				MarkTodoDone(todos)
+				ToggleTodoDone(todos)
 			}
 		case "4":
 			{
