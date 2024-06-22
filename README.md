@@ -31,7 +31,7 @@ Follow the steps to get started with go-wc
 1. Clone the repository using Git:
 
    ```
-   https://github.com/pranavpatel3012/Go-ToDo-cli.git
+   https://github.com/pranav11p/Go-ToDo-cli.git
    ```
 
 2. Go to the project directory
